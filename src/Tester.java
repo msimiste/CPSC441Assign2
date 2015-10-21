@@ -37,6 +37,7 @@ public class Tester {
 		server.stop();
 		System.out.println("Server stopped.");
 		keyboard.close();
+		System.exit(0);
 	}
 	
 }

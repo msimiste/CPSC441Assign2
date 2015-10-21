@@ -5,15 +5,15 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.TimeZone;
 
-
 public class Utility {
-	
-	
-	
-	public Utility(){}
+
+	public Utility() {
+	}
+
 	/**
 	 * 
-	 * @param in - A date in the form of a String
+	 * @param in
+	 *            - A date in the form of a String
 	 * @return Date value which has been formatted
 	 */
 	public static Date convertToDate(String in) {
@@ -23,7 +23,7 @@ public class Utility {
 		try {
 			date = d.parse(in);
 		} catch (ParseException e) {
-			
+
 			e.printStackTrace();
 		}
 		return date;
@@ -62,74 +62,79 @@ public class Utility {
 		String date = d.format(lastMod);
 
 		return date;
-	} 
-	
-	
-	public static boolean checkPath(String url)
-	{
-		
+	}
+
+	/**
+	 * 
+	 * @param url
+	 * string which may or may not represent the path to a locally stored file
+	 * @return
+	 * 		boolean value, true if the file exists, otherwise false
+	 */
+	public static boolean checkPath(String url) {
+
 		boolean fileExists = false;
 		return fileExists;
 	}
-	public static String checkRequest(String url)
-	{
-		//Set possible responses
+
+	/**
+	 * 
+	 * @param url
+	 * 		String which is a header request	 * 		
+	 * @return
+	 *   A String in the format of a proper HTTP protocol response
+	 */
+	public static String checkRequest(String url) {
+		// Set possible responses
 		String ok = "200 OK";
 		String bad = "400 Bad Request";
 		String notFound = "404 Not Found";
-		if(url.equals(""))
-		{
+		if (url.equals("")) {
 			return bad;
 		}
-	
-		
-		//Split the request
+
+		// Split the request
 		String[] arr = url.split("\r\n");
-		
-		//Parse the first 4 chars of request
-		String test = arr[0].substring(0,4);
-		
-		//check to see that the request begins with "GET "
-		if(!(test.equals("GET ")))
-		{
+
+		// Parse the first 4 chars of request
+		String test = arr[0].substring(0, 4);
+
+		// check to see that the request begins with "GET "
+		if (!(test.equals("GET "))) {
 			return bad;
 		}
-		
-		
-		//verify proper HTTP protocol
-		if(!(arr[0].contains("HTTP/1.1")))
-			return bad;
-		
-		//get the path
-		String[] arr1  = arr[0].split(" ");
+
+		// verify proper HTTP protocol
+		if (!(arr[0].contains("HTTP/1.0"))) {
+			if (!(arr[0].contains("HTTP/1.1")))
+				return bad;
+		}
+
+		// get the path
+		String[] arr1 = arr[0].split(" ");
 		String path = arr1[1];
 		path = path.substring(1);
-	
+
 		File f = new File(path);
-		if(f.exists())
-		{
+		if (f.exists()) {
 			return ok;
 		}
 		return notFound;
-		
-		
 	}
-	
-	public static File getFile(String url){
-		
-		//Split the request
+
+	public static File getFile(String url) {
+
+		// Split the request
 		String[] arr = url.split("\r\n");
-				
-		//get the path
-		String[] arr1  = arr[0].split(" ");
+
+		// get the path
+		String[] arr1 = arr[0].split(" ");
 		String path = arr1[1].substring(1);
-		
-		File f = new File(path);		
-		
+
+		File f = new File(path);
+
 		return f;
-		
-		
+
 	}
-	
 
 }

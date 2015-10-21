@@ -1,7 +1,12 @@
 import java.net.*;
 import java.io.*;
 
-public class WebServer {
+/**
+ * 
+ * @author Mike Simister
+ *
+ */
+ class WebServer {
 
 	private int port;
 	private ServerSocket serverSocket = null;
@@ -26,10 +31,6 @@ public class WebServer {
 	}
 
 	public void stop() {
-
-		mt.setStopped();
-		
-
-
+		mt.setStopped(); // stop the loop in master thread
 	}
 }

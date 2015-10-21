@@ -3,6 +3,11 @@ import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 
+/**
+ * 
+ * @author Mike Simister
+ *
+ */
 
 public class Master extends Thread {
 	
@@ -13,15 +18,19 @@ public class Master extends Thread {
 	{
 		serverSocket = s;
 	}
-	public void run(){
+	
+	
+	public void run(){		
 		
-		
+		// server_listen loop, while !stopped,
+		// listen for incoming connections, 
+		// if one exists create a thread to handle it
 		while(!(stopped))
 		{
 			Socket clientSocket = null;
 			
 			try {
-				//System.out.println("Did I make it");
+				
 				clientSocket = this.serverSocket.accept();
 				
 			} catch (IOException e) {
@@ -37,9 +46,14 @@ public class Master extends Thread {
 			new Thread(new SlaveThread(clientSocket)).start();			
 		}		
 	}
-	public  void setStopped()
+	/**
+	 * method toggles the boolean value stopped
+	 * which in turn controls the server_listen loop.
+	 */
+	public void setStopped()
 	{
 		stopped = true;
+		
 	}
 
 }
