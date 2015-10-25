@@ -4,6 +4,7 @@ import java.io.*;
 /**
  * 
  * @author Mike Simister
+ * October 20, 2015
  *
  */
  class WebServer {
@@ -16,6 +17,9 @@ import java.io.*;
 		this.port = port;
 	}
 
+	/**
+	 * Initiate the main thread	 * 
+	 */
 	public void start() {
 
 		try {
@@ -30,6 +34,9 @@ import java.io.*;
 
 	}
 
+	/**
+	 * 
+	 */
 	public void stop() {
 		mt.setStopped(); // stop the loop in master thread
 	}

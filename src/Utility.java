@@ -5,13 +5,19 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.TimeZone;
 
+/**
+ * 
+ * @author Mike Simister
+ * This class provides utility methods for 
+ * assignments 1 and 2 from CPSC441 F2015
+ *
+ */
 public class Utility {
 
 	public Utility() {
 	}
 
 	/**
-	 * 
 	 * @param in
 	 *            - A date in the form of a String
 	 * @return Date value which has been formatted
@@ -30,7 +36,6 @@ public class Utility {
 	}
 
 	/**
-	 * 
 	 * @param lastModDate
 	 *            A Time to be formatted
 	 * @return Date value which has been formatted
@@ -50,7 +55,6 @@ public class Utility {
 	}
 
 	/**
-	 * 
 	 * @param lastMod
 	 *            A Time value to be formatted
 	 * @return String which has been converted to a date and formatted.
@@ -65,7 +69,6 @@ public class Utility {
 	}
 
 	/**
-	 * 
 	 * @param url
 	 * string which may or may not represent the path to a locally stored file
 	 * @return
@@ -78,7 +81,6 @@ public class Utility {
 	}
 
 	/**
-	 * 
 	 * @param url
 	 * 		String which is a header request	 * 		
 	 * @return
@@ -122,6 +124,13 @@ public class Utility {
 		return notFound;
 	}
 
+	/**
+	 *  @param url
+	 *     String which is a header request and contains
+	 *     a file path 
+	 * @return 
+	 * 		The file which was specified by the path.
+	 */
 	public static File getFile(String url) {
 
 		// Split the request

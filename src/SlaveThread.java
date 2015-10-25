@@ -1,7 +1,12 @@
 import java.io.*;
 import java.net.*;
 
-
+/**
+ * 
+ * @author Mike Simister
+ *  October 20, 2015
+ *
+ */
 public class SlaveThread extends Thread {
 
 	private Socket clientSocket = null;
@@ -68,11 +73,28 @@ public class SlaveThread extends Thread {
 
 	}
 
+	/**
+	 * 
+	 * @param s
+	 *    A String which contains a request header
+	 * @return
+	 *     The first 3 lines of a response header
+	 */
 	private String formResponseHeader(String s) {
 		
 		// conditionally form the first line of the response it will be
 		// either: 200 ok, or 400 bad request or 404 not found
-		String line1 = "HTTP/1.1 " + Utility.checkRequest(s) + "\r\n";
+		//if(s.contains(""))
+		String firstLineFill = Utility.checkRequest(s);
+		String line1= "";
+		if(s.contains("HTTP/1.1"))
+		 {
+			line1 = "HTTP/1.1 " + firstLineFill + "\r\n";
+		 }
+		else if(s.contains("HTTP/1.0"))
+		{
+			line1 = "HTTP/1.0 " + firstLineFill + "\r\n";
+		}
 		String line2 = "Connection: close\r\n";
 
 		// conditionally for the third line of the response to the current
@@ -85,6 +107,15 @@ public class SlaveThread extends Thread {
 		return header;
 	}
 
+	/**
+	 * 
+	 * @param s
+	 *     A String which is the first portion of a reponse header
+	 * @param f
+	 *    A file which is to be returned in a response
+	 * @return
+	 *    A string which is the complete header which is has been appended based on the file information
+	 */
 	private String goodRequestAppendHeader(String s, File f) {
 
 		long fileSize = f.length(); // get the filesize
@@ -99,6 +130,13 @@ public class SlaveThread extends Thread {
 		return header;
 	}
 
+	/**
+	 * 
+	 * @param s
+	 *     String which is the first portion of a response header
+	 * @return
+	 *     A string which is the complete header which is has been appended based on the file information
+	 */
 	private String badRequestAppendHeader(String s) {
 
 		String[] arr = s.split("\r\n");

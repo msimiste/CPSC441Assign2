@@ -6,7 +6,9 @@ import java.net.Socket;
 /**
  * 
  * @author Mike Simister
- *
+ * This class is the main thread. 
+ * It's job is to listen for a connection on the serverSocket's predetermined port
+ * Master can accept many parallel connections.
  */
 
 public class Master extends Thread {
@@ -19,7 +21,10 @@ public class Master extends Thread {
 		serverSocket = s;
 	}
 	
-	
+	/**
+	 * serverSocket is used to listen for a connection, when one is found a
+	 * worker thread is spawned to handle the connection request
+	 */
 	public void run(){		
 		
 		// server_listen loop, while !stopped,
@@ -27,11 +32,11 @@ public class Master extends Thread {
 		// if one exists create a thread to handle it
 		while(!(stopped))
 		{
-			Socket clientSocket = null;
+			Socket clientSocket = new Socket();
 			
-			try {
+			try {				
 				
-				clientSocket = this.serverSocket.accept();
+				clientSocket = this.serverSocket.accept();				
 				
 			} catch (IOException e) {
 				
@@ -43,7 +48,10 @@ public class Master extends Thread {
 				}
 				throw new RuntimeException("Client Connection error",e);				
 			}
-			new Thread(new SlaveThread(clientSocket)).start();			
+			if(!(clientSocket.isClosed()))
+			{
+				new Thread(new SlaveThread(clientSocket)).start();			
+			}
 		}		
 	}
 	/**
@@ -52,7 +60,7 @@ public class Master extends Thread {
 	 */
 	public void setStopped()
 	{
-		stopped = true;
+		stopped = true;		
 		
 	}
 
